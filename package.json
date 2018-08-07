@@ -1,0 +1,11 @@
+{
+  "name": "@01ht/ht-image-slider",
+  "version": "1.0.0",
+  "main": "ht-image-slider.js",
+  "repository": "01ht/ht-image-slider",
+  "author": "01ht Ltd",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@polymer/lit-element": "^0.5.1"
+  }
+}
