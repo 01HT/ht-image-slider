@@ -21,6 +21,7 @@ class HTImageSlider extends LitElement {
           display: block;
           position:relative;
           box-sizing:border-box;
+          overflow:hidden;
         }
 
         paper-icon-button {
@@ -89,7 +90,7 @@ class HTImageSlider extends LitElement {
     for (let itemId in data) {
       let item = data[itemId];
       let img = document.createElement("img");
-      img.src = `${window.cloudinaryURL}/image/upload/c_scale,f_auto,w_512/v${
+      img.src = `${window.cloudinaryURL}/image/upload/c_scale,f_auto,w_1024/v${
         item.version
       }/${item.public_id}.jpg`;
       if (this.url) {
