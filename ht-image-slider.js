@@ -24,6 +24,10 @@ class HTImageSlider extends LitElement {
           overflow:hidden;
         }
 
+        a {
+          display:block;
+        }
+
         paper-icon-button {
           color:#fff;
           filter:drop-shadow(0 0 2px hsl(0,0%,10%));
@@ -32,8 +36,8 @@ class HTImageSlider extends LitElement {
         .nav-button {
           position: absolute;
           top: calc(50% - 20px);
-          border-radius:50%;
-          margin:0 8px;
+          border-radius: 50%;
+          margin: 0 8px;
           cursor: pointer;
           transition: .4s;
         }
@@ -119,7 +123,7 @@ class HTImageSlider extends LitElement {
     previous.setAttribute("id", "previous");
     previous.classList.add("nav-button");
     previous.setAttribute("icon", "ht-image-slider:chevron-left");
-    $(previous).click(_ => {
+    previous.addEventListener("click", _ => {
       owl.trigger("prev.owl.carousel");
     });
     owlStageOuter.appendChild(previous);
@@ -128,7 +132,7 @@ class HTImageSlider extends LitElement {
     next.setAttribute("id", "next");
     next.classList.add("nav-button");
     next.setAttribute("icon", "ht-image-slider:chevron-right");
-    $(next).click(_ => {
+    next.addEventListener("click", _ => {
       owl.trigger("next.owl.carousel");
     });
     owlStageOuter.appendChild(next);
