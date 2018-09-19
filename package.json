@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "main": "ht-image-slider.js",
   "repository": "01ht/ht-image-slider",
-  "author": "01ht Ltd",
+  "author": "01HT Ltd",
   "license": "UNLICENSED",
   "dependencies": {
-    "@polymer/lit-element": "^0.5.1"
+    "@polymer/lit-element": "^0.6.1",
+    "@polymer/paper-icon-button": "^3.0.1",
+    "@polymer/iron-iconset-svg": "^3.0.1",
+    "@polymer/iron-icon": "^3.0.1",
+    "@01ht/ht-image": "^1.0.0"
   }
 }

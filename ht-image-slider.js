@@ -3,7 +3,7 @@ import { LitElement, html } from "@polymer/lit-element";
 import "@polymer/paper-icon-button";
 import "@polymer/iron-iconset-svg";
 import "@polymer/iron-icon";
-// import "./jquery";
+import "@01ht/ht-image";
 import { owlCarouselMin } from "./styles.owl.carousel.min.js";
 import { owlThemeDefaultMin } from "./styles.owl.theme.default.min.js";
 import "./jquery.min.js";
@@ -12,7 +12,7 @@ window.jQuery = jQuery;
 import "./owl.carousel.min.js";
 
 class HTImageSlider extends LitElement {
-  _render({ data }) {
+  render() {
     return html`
       ${owlCarouselMin}
       ${owlThemeDefaultMin}
@@ -57,6 +57,15 @@ class HTImageSlider extends LitElement {
         #next {
           right: 0;
         }
+
+        .slick-slider {
+          overflow: hidden;
+        }
+
+        .slick-list {
+          position: relative;
+          left: -1px;
+        }
       </style>
       <iron-iconset-svg size="24" name="ht-image-slider">
         <svg>
@@ -76,12 +85,12 @@ class HTImageSlider extends LitElement {
 
   static get properties() {
     return {
-      data: Object,
-      url: String
+      data: { type: Object },
+      url: { type: String }
     };
   }
 
-  _didRender() {
+  updated() {
     let owl = this.shadowRoot.querySelector(".owl-carousel");
     if (owl !== null) $(owl).owlCarousel("destroy");
     const container = this.shadowRoot.querySelector("#container");
@@ -93,17 +102,27 @@ class HTImageSlider extends LitElement {
     let data = this.data;
     for (let itemId in data) {
       let item = data[itemId];
-      let img = document.createElement("img");
-      img.src = `${window.cloudinaryURL}/image/upload/c_scale,f_auto,w_1024/v${
-        item.version
-      }/${item.public_id}.jpg`;
+      let htImage = document.createElement("ht-image");
+      htImage.setAttribute(
+        "placeholder",
+        `${window.cloudinaryURL}/image/upload/c_scale,f_auto,w_60/v${
+          item.version
+        }/${item.public_id}.jpg`
+      );
+      htImage.setAttribute(
+        "image",
+        `${window.cloudinaryURL}/image/upload/c_scale,f_auto,w_1024/v${
+          item.version
+        }/${item.public_id}.jpg`
+      );
+      htImage.setAttribute("size", "16x9");
       if (this.url) {
         let aTag = document.createElement("a");
         aTag.setAttribute("href", this.url);
-        aTag.appendChild(img);
+        aTag.appendChild(htImage);
         owl.appendChild(aTag);
       } else {
-        owl.appendChild(img);
+        owl.appendChild(htImage);
       }
     }
     container.appendChild(owl);
@@ -113,7 +132,9 @@ class HTImageSlider extends LitElement {
       loop: true,
       lazyLoad: true,
       center: true,
-      dots: false
+      dots: false,
+      // Fix for margin bug
+      margin: 2
     });
 
     // Add nav buttons
