@@ -66,6 +66,16 @@ class HTImageSlider extends LitElement {
           position: relative;
           left: -1px;
         }
+
+        .owl-stage-outer::after {
+          width: 1px; 
+          content: " "; 
+          position: absolute; 
+          top: 0; 
+          left: 0; 
+          height: 100%; 
+          background-color: white;  
+        }
       </style>
       <iron-iconset-svg size="24" name="ht-image-slider">
         <svg>
@@ -132,9 +142,7 @@ class HTImageSlider extends LitElement {
       loop: true,
       lazyLoad: true,
       center: true,
-      dots: false,
-      // Fix for margin bug
-      margin: 2
+      dots: false
     });
 
     // Add nav buttons
