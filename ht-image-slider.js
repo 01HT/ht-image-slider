@@ -42,6 +42,10 @@ class HTImageSlider extends LitElement {
           transition: .4s;
         }
 
+        #container {
+          margin-left: -1px;
+        }
+
         #container:hover .nav-button {
           background: rgba(51,51,51,.6);
         }
