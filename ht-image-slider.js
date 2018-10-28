@@ -6,10 +6,6 @@ import "@polymer/iron-icon";
 import "@01ht/ht-image";
 import { owlCarouselMin } from "./styles.owl.carousel.min.js";
 import { owlThemeDefaultMin } from "./styles.owl.theme.default.min.js";
-import "./jquery.min.js";
-window.$ = $;
-window.jQuery = jQuery;
-import "./owl.carousel.min.js";
 
 class HTImageSlider extends LitElement {
   render() {
@@ -104,9 +100,72 @@ class HTImageSlider extends LitElement {
     };
   }
 
-  updated() {
+  constructor() {
+    super();
+    this.jqueryReady = false;
+    this.carouselReady = false;
+  }
+
+  firstUpdated() {
+    this.initJquery();
+  }
+
+  initJquery() {
+    if (window.$) {
+      this.jqueryReady = true;
+      this.initOwlCarousel();
+      return;
+    }
+    if (window.jQueryScriptAdded === undefined) {
+      window.jQueryScriptAdded = true;
+      let script = document.createElement("script");
+      script.src = "/node_modules/jquery/dist/jquery.min.js";
+      document.body.appendChild(script);
+    }
+    this._checkJqueryInit();
+  }
+
+  _checkJqueryInit() {
+    if (window.$) {
+      this.jqueryReady = true;
+      this.initOwlCarousel();
+    } else {
+      setTimeout(_ => {
+        this._checkJqueryInit();
+      }, 100);
+    }
+  }
+
+  initOwlCarousel() {
+    if ($().owlCarousel) {
+      this.carouselReady = true;
+      this.initSlider();
+      return;
+    }
+    if (window.owlCarouselScriptAdded === undefined) {
+      window.owlCarouselScriptAdded = true;
+      let script = document.createElement("script");
+      script.src = "/node_modules/owl.carousel/dist/owl.carousel.min.js";
+      document.body.appendChild(script);
+    }
+    this._checkCarouselInit();
+  }
+
+  _checkCarouselInit() {
+    if ($().owlCarousel) {
+      this.carouselReady = true;
+      this.initSlider();
+    } else {
+      setTimeout(_ => {
+        this._checkCarouselInit();
+      }, 100);
+    }
+  }
+
+  initSlider() {
+    if (!this.jqueryReady || !this.carouselReady) return;
     let owl = this.shadowRoot.querySelector(".owl-carousel");
-    if (owl !== null) $(owl).owlCarousel("destroy");
+    if (owl !== null) window.$(owl).owlCarousel("destroy");
     const container = this.shadowRoot.querySelector("#container");
     container.innerHTML = "";
 
@@ -120,13 +179,13 @@ class HTImageSlider extends LitElement {
       htImage.setAttribute(
         "placeholder",
         `${window.cloudinaryURL}/image/upload/c_scale,f_auto,w_60/v${
-          item.version
+        item.version
         }/${item.public_id}.jpg`
       );
       htImage.setAttribute(
         "image",
         `${window.cloudinaryURL}/image/upload/c_scale,f_auto,w_1024/v${
-          item.version
+        item.version
         }/${item.public_id}.jpg`
       );
       htImage.setAttribute("size", "16x9");
@@ -141,7 +200,7 @@ class HTImageSlider extends LitElement {
     }
     container.appendChild(owl);
 
-    owl = $(owl).owlCarousel({
+    owl = window.$(owl).owlCarousel({
       items: 1,
       loop: true,
       lazyLoad: true,
@@ -169,6 +228,10 @@ class HTImageSlider extends LitElement {
       owl.trigger("next.owl.carousel");
     });
     owlStageOuter.appendChild(next);
+  }
+
+  updated() {
+    this.initSlider();
   }
 }
 

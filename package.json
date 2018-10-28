@@ -10,6 +10,8 @@
     "@polymer/paper-icon-button": "^3.0.1",
     "@polymer/iron-iconset-svg": "^3.0.1",
     "@polymer/iron-icon": "^3.0.1",
-    "@01ht/ht-image": "01ht/ht-image"
+    "@01ht/ht-image": "01ht/ht-image",
+    "jquery": "^3.3.1",
+    "owl.carousel": "^2.3.4"
   }
 }
