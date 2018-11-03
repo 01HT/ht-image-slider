@@ -96,7 +96,8 @@ class HTImageSlider extends LitElement {
   static get properties() {
     return {
       data: { type: Object },
-      url: { type: String }
+      url: { type: String },
+      altText: { type: String }
     };
   }
 
@@ -179,16 +180,18 @@ class HTImageSlider extends LitElement {
       htImage.setAttribute(
         "placeholder",
         `${window.cloudinaryURL}/image/upload/c_scale,f_auto,w_60/v${
-        item.version
+          item.version
         }/${item.public_id}.jpg`
       );
       htImage.setAttribute(
         "image",
         `${window.cloudinaryURL}/image/upload/c_scale,f_auto,w_1024/v${
-        item.version
+          item.version
         }/${item.public_id}.jpg`
       );
       htImage.setAttribute("size", "16x9");
+      let alt = this.altText ? this.altText : "";
+      htImage.setAttribute("altText", alt);
       if (this.url) {
         let aTag = document.createElement("a");
         aTag.setAttribute("href", this.url);
