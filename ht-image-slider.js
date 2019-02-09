@@ -1,5 +1,5 @@
 "use strict";
-import { LitElement, html } from "@polymer/lit-element";
+import { LitElement, html, css } from "lit-element";
 import "@polymer/paper-icon-button";
 import "@polymer/iron-iconset-svg";
 import "@polymer/iron-icon";
@@ -8,11 +8,10 @@ import { owlCarouselMin } from "./styles.owl.carousel.min.js";
 import { owlThemeDefaultMin } from "./styles.owl.theme.default.min.js";
 
 class HTImageSlider extends LitElement {
-  render() {
-    return html`
-      ${owlCarouselMin}
-      ${owlThemeDefaultMin}
-      <style>
+  static styles = [
+    owlCarouselMin,
+    owlThemeDefaultMin,
+    css`<style>
         :host {
           display: block;
           position:relative;
@@ -76,7 +75,11 @@ class HTImageSlider extends LitElement {
           height: 100%; 
           background-color: white;  
         }
-      </style>
+      </style>`
+  ];
+
+  render() {
+    return html`
       <iron-iconset-svg size="24" name="ht-image-slider">
         <svg>
             <defs>
@@ -87,10 +90,6 @@ class HTImageSlider extends LitElement {
     </iron-iconset-svg>
     <div id="container"></div>
 `;
-  }
-
-  static get is() {
-    return "ht-image-slider";
   }
 
   static get properties() {
@@ -238,4 +237,4 @@ class HTImageSlider extends LitElement {
   }
 }
 
-customElements.define(HTImageSlider.is, HTImageSlider);
+customElements.define("ht-image-slider", HTImageSlider);
