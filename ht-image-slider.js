@@ -8,10 +8,11 @@ import { owlCarouselMin } from "./styles.owl.carousel.min.js";
 import { owlThemeDefaultMin } from "./styles.owl.theme.default.min.js";
 
 class HTImageSlider extends LitElement {
-  static styles = [
-    owlCarouselMin,
-    owlThemeDefaultMin,
-    css`<style>
+  static get styles() {
+    return [
+      owlCarouselMin,
+      owlThemeDefaultMin,
+      css`<style>
         :host {
           display: block;
           position:relative;
@@ -76,7 +77,8 @@ class HTImageSlider extends LitElement {
           background-color: white;  
         }
       </style>`
-  ];
+    ];
+  }
 
   render() {
     return html`
