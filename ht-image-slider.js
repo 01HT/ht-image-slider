@@ -186,7 +186,7 @@ class HTImageSlider extends LitElement {
       );
       htImage.setAttribute(
         "image",
-        `${window.cloudinaryURL}/image/upload/c_scale,f_auto,w_1024/v${
+        `${window.cloudinaryURL}/image/upload/c_scale,f_auto,w_1500/v${
           item.version
         }/${item.public_id}.jpg`
       );
