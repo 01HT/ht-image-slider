@@ -180,15 +180,17 @@ class HTImageSlider extends LitElement {
       let htImage = document.createElement("ht-image");
       htImage.setAttribute(
         "placeholder",
-        `${window.cloudinaryURL}/image/upload/c_scale,f_auto,w_60/v${
+        `${window.appConfig.cloudinary.url}/image/upload/c_scale,f_auto,w_60/v${
           item.version
         }/${item.public_id}.jpg`
       );
       htImage.setAttribute(
         "image",
-        `${window.cloudinaryURL}/image/upload/c_scale,f_auto,w_1500/v${
-          item.version
-        }/${item.public_id}.jpg`
+        `${
+          window.appConfig.cloudinary.url
+        }/image/upload/c_scale,f_auto,w_1500/v${item.version}/${
+          item.public_id
+        }.jpg`
       );
       htImage.setAttribute("size", "16x9");
       let alt = this.altText ? this.altText : "";
